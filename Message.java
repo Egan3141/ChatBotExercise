@@ -8,9 +8,8 @@
  */
 public class Message {
 	
+	protected String title;
 	protected String message;
-	protected User sender;
-	protected User receiver;
 	
 	/**
 	 * A constructor for a Message object. Because every message must be added to the
@@ -20,50 +19,35 @@ public class Message {
 	 * @param sender The User that sent the message.
 	 * @param receiver The intended receiver of the message.
 	 */
-	private Message(String message, User sender, User receiver) {
+	private Message(String title, String message) {
+		this.title = title;
 		this.message = message;
-		this.sender = sender;
-		this.receiver = receiver;
 	}
 
 	/**
 	 * Stores a message in the database.
+	 * @param dB 
 	 * 
 	 * @param message The message to be stored.
-	 * @param sender The sender of the message.
-	 * @param receiver The intended receiver of the message.
-	 * @return returns a string explaining what happened.
-	 * 	Success: User was added.
-	 *  No User: Either the sender or receiver does not exist.
-	 *  Null: A null argument was passed.
+	 * @param title A short description of the message
+	 * @param message The actual message
 	 */
-	public String storeMessage(String message, User sender, User receiver) {
-		//Handle invalid input.
-		if(message == null || sender == null || receiver == null) {
-			return "null";
-		}
-		if(User.retrieveUser(sender.name) == null || User.retrieveUser(receiver.name) == null) {
-			return "No User";
-		}
+	public static void storeMessage(FakeDatabase DB, String title, String message) {
 		//Create the message.
-		Message newMessage = new Message(message, sender, receiver);
+		Message newMessage = new Message(title, message);
 		
 		//Placeholder code for storing the message in the database.
-		FakeDatabase.addMessage(newMessage);
-		
-		//Only if the message was added to database.
-		return "Success";
+		DB.addMessage(newMessage);
 	}
 	
 	/**
 	 * Retrieves the latest message for that user.
 	 * 
-	 * @param receiver Who the message is for.
+	 * @param string Who the message is for.
 	 * @return The latest message for the user or null if there are no more messages for the user.
 	 */
-	public Message retrieveMessage(User receiver) {
-		//Placeholder code for retrieving the message from the database.
-		return FakeDatabase.getMessage(receiver);
+	public static Message retrieveMessage(FakeDatabase DB, String title) {
+		return DB.getMessage(title);
 	}
 
 }

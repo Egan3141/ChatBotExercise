@@ -32,9 +32,13 @@ TODO
 
 	Chatbot: I assumed this was the main program that ran everything.
 	
-sendMessage: 
-receiveMessage:
+sendMessage: I assumed this method was intended to respond to the user as the primary interaction of this
+ entire program
+
+receiveMessage: I assumed this method would receive a method from the user.
+
 createUser: 
+
 updateUserProfile: 
 
 
@@ -43,8 +47,7 @@ updateUserProfile:
 constructor: I assumed that the storeMessage method would be equivalent to calling the constructor. As
  such, I decided the constructor should only be accessible by this class and made it private.
  
-storeMessage: I assumed a database would not check for valid input. Because of this I coded storeMessage
- to return a string that describes what happened. I.E. returns "Null" if a null argument was passed.
+storeMessage: I assumed this would be used to store messages for responses to the user.
  
 retrieveMessage: I assumed this would contact the database directly and return the object. As such, it is
  a 1 line piece of code that contacts the database. Since testing this method would actually test a method

@@ -27,6 +27,7 @@ public class User {
 	
 	/**
 	 * Creates a User object and adds that object to the database.
+	 * @param DB 
 	 * 
 	 * @param name The name of the user.
 	 * @param password The password of the user.
@@ -36,12 +37,12 @@ public class User {
 	 *  Duplicate: Another user with that name already exists.
 	 *  Invalid: Invalid input was provided. 
 	 */
-	public String createUser(String name, String password, String otherInfo) {
+	public static String createUser(FakeDatabase DB, String name, String password, String otherInfo) {
 		//Handle invalid input.
 		if(name == null || password == null || otherInfo == null) {
 			return "Invalid";
 		}
-		if(retrieveUser(name) != null) {
+		if(retrieveUser(DB, name) != null) {
 			return "Duplicate";
 		}
 		
@@ -52,7 +53,7 @@ public class User {
 		User newUser = new User(name, hashedPW, otherInfo);
 		
 		//Placeholder code for adding to the database.
-		FakeDatabase.addUser(newUser);
+		DB.addUser(newUser);
 		
 		//Only if user was added to database.
 		return "Success";
@@ -65,7 +66,7 @@ public class User {
 	 * @param password The password to be hashed.
 	 * @return The hashed value.
 	 */
-	private String fakeHash(String name, String password) {
+	private static String fakeHash(String name, String password) {
 		// Fake hashing algorithm.
 		return (name + password);
 	}
@@ -76,9 +77,9 @@ public class User {
 	 * @param name The name of the user to be retrieved.
 	 * @return The user object if found, null if not found.
 	 */
-	public static User retrieveUser(String name) {
+	public static User retrieveUser(FakeDatabase DB, String name) {
 		//Placeholder code for retrieving information from the database.
-		return FakeDatabase.getUser(name);
+		return DB.getUser(name);
 	}
 
 }
