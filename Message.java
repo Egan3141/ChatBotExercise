@@ -9,44 +9,50 @@
 public class Message {
 	
 	protected String title;
-	protected String message;
+	protected String content;
 	
 	/**
 	 * A constructor for a Message object. Because every message must be added to the
 	 * database, only storeMessage may access this constructor.
 	 * 
-	 * @param message The message to be stored.
-	 * @param sender The User that sent the message.
-	 * @param receiver The intended receiver of the message.
+	 * @param title The title of the message.
+	 * @param content The content of the message to be stored.
 	 */
-	private Message(String title, String message) {
+	protected Message(String title, String content) {
 		this.title = title;
-		this.message = message;
+		this.content = content;
 	}
 
 	/**
 	 * Stores a message in the database.
-	 * @param dB 
 	 * 
-	 * @param message The message to be stored.
-	 * @param title A short description of the message
-	 * @param message The actual message
+	 * @param DB The database holding the messages.
+	 * @param title A short description of the message.
+	 * @param message The actual message.
+	 * @return true if message stored, false otherwise.
 	 */
-	public static void storeMessage(FakeDatabase DB, String title, String message) {
-		//Create the message.
-		Message newMessage = new Message(title, message);
-		
-		//Placeholder code for storing the message in the database.
+	public static boolean storeMessage(FakeDatabase DB, String title, String content) {
+		//Check input.
+		if(DB == null || title == null || content == null) {
+			return false;
+		}
+		//Create and add the message.
+		Message newMessage = new Message(title, content);
 		DB.addMessage(newMessage);
+		return true;
 	}
 	
 	/**
 	 * Retrieves the latest message for that user.
 	 * 
-	 * @param string Who the message is for.
-	 * @return The latest message for the user or null if there are no more messages for the user.
+	 * @param DB the database holding the messages.
+	 * @param title The title of the message
+	 * @return The message containing that title, or null if non exist.
 	 */
 	public static Message retrieveMessage(FakeDatabase DB, String title) {
+		if(DB == null  || title == null) {
+			return null;
+		}
 		return DB.getMessage(title);
 	}
 
